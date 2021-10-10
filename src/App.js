@@ -3,7 +3,7 @@ import {
   createTheme,
   responsiveFontSizes,
 } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
+import { Paper, CssBaseline } from '@mui/material'
 import Grid from '@mui/material/Grid'
 
 import Navbar from './components/Header/Navbar'
@@ -13,23 +13,21 @@ import List from './components/List/List'
 const App = () => {
   const theme = responsiveFontSizes(
     createTheme({
-      // typography: {
-      //   fontFamily: '"Ubuntu"',
-      //   color: {
-      //     main: '#fff',
-      //     secondary: 'rgba(255, 255, 255, 0.7)',
-      //     disabled: 'rgba(255, 255, 255, 0.5)',
-      //   },
-      // },
-      // palette: {
-      //   primary: { main: '#032541' },
-      //   secondary: { main: '#39A2DB' },
-      //   alternate: { main: '#161616' },
-      //   error: { main: '#F8485E' },
-      //   background: {
-      //     default: '#043359',
-      //   },
-      // },
+      typography: {
+        fontFamily: '"Open Sans"',
+        color: {
+          main: '#fff',
+          secondary: 'rgba(255, 255, 255, 0.7)',
+          disabled: 'rgba(255, 255, 255, 0.5)',
+        },
+      },
+      palette: {
+        // type: 'dark',
+        // primary: { main: '#032541' },
+        // secondary: { main: '#39A2DB' },
+        // alternate: { main: '#161616' },
+        // error: { main: '#F8485E' },
+      },
     })
   )
 
