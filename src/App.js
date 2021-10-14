@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   ThemeProvider,
   createTheme,
@@ -11,6 +12,8 @@ import Map from './components/Map/Map'
 import List from './components/List/List'
 
 const App = () => {
+  const [dark, setDark] = useState(true)
+
   const theme = responsiveFontSizes(
     createTheme({
       typography: {
@@ -22,7 +25,7 @@ const App = () => {
         },
       },
       palette: {
-        // type: 'dark',
+        mode: dark ? 'dark' : 'light',
         // primary: { main: '#032541' },
         // secondary: { main: '#39A2DB' },
         // alternate: { main: '#161616' },
@@ -34,16 +37,22 @@ const App = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Navbar />
-        <Grid container spacing={3} style={{ width: '100%' }}>
-          <Grid item xs={12} md={4}>
-            <List />
+        <Paper>
+          <CssBaseline />
+          <Navbar dark={dark} setDark={setDark} />
+          <Grid
+            container
+            spacing={3}
+            style={{ width: '100%', height: '60rem' }}
+          >
+            <Grid item xs={12} md={4}>
+              <List />
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <Map />
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <Map />
-          </Grid>
-        </Grid>
+        </Paper>
       </ThemeProvider>
     </div>
   )

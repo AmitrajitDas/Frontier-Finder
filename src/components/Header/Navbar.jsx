@@ -2,10 +2,12 @@ import React from 'react'
 import { Autocomplete } from '@react-google-maps/api'
 import { AppBar, Toolbar, Typography, InputBase, Box } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
 
-import useStyles from './styles.js'
+import useStyles from './styles'
 
-const Navbar = () => {
+const Navbar = ({ dark, setDark }) => {
   const classes = useStyles()
 
   return (
@@ -19,6 +21,28 @@ const Navbar = () => {
           TriPPier
         </Typography>
         <Box display='flex'>
+          {dark ? (
+            <DarkModeIcon
+              style={{
+                width: '2rem',
+                height: '2rem',
+                marginRight: '2rem',
+                cursor: 'pointer',
+              }}
+              onClick={() => setDark(false)}
+            />
+          ) : (
+            <LightModeIcon
+              style={{
+                width: '2rem',
+                height: '2rem',
+                marginRight: '2rem',
+                cursor: 'pointer',
+              }}
+              onClick={() => setDark(true)}
+            />
+          )}
+
           <Typography variant='h6' className={classes.title}>
             Explore new places
           </Typography>
