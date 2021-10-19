@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   ThemeProvider,
   createTheme,
@@ -7,12 +7,33 @@ import {
 import { Paper, CssBaseline } from '@mui/material'
 import Grid from '@mui/material/Grid'
 
+import { getPlacesData } from './api/TrippierAPI'
+
 import Navbar from './components/Header/Navbar'
 import Map from './components/Map/Map'
 import List from './components/List/List'
 
 const App = () => {
   const [dark, setDark] = useState(true)
+  const [places, setPlaces] = useState([])
+  const [coordinates, setCoordinates] = useState({})
+  const [bounds, setBounds] = useState(null)
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords: { latitude, longitude } }) => {
+        setCoordinates({ lat: latitude, lng: longitude })
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    console.log(coordinates, bounds)
+    getPlacesData(bounds && bounds.ne, bounds && bounds.sw).then((data) => {
+      console.log(data)
+      setPlaces(data)
+    })
+  }, [coordinates, bounds])
 
   const theme = responsiveFontSizes(
     createTheme({
@@ -40,16 +61,16 @@ const App = () => {
         <Paper>
           <CssBaseline />
           <Navbar dark={dark} setDark={setDark} />
-          <Grid
-            container
-            spacing={3}
-            style={{ width: '100%', height: '60rem' }}
-          >
+          <Grid container spacing={3} style={{ width: '100%', height: '100%' }}>
             <Grid item xs={12} md={4}>
               <List />
             </Grid>
             <Grid item xs={12} md={8}>
-              <Map />
+              <Map
+                coordinates={coordinates}
+                setCoordinates={setCoordinates}
+                setBounds={setBounds}
+              />
             </Grid>
           </Grid>
         </Paper>
