@@ -8,6 +8,7 @@ import {
   FormControl,
   Select,
 } from '@mui/material'
+import PlaceDetails from '../PlaceDetails/PlaceDetails'
 
 import useStyles from './styles'
 
@@ -16,6 +17,18 @@ const List = () => {
 
   const [type, setType] = useState('restaurants')
   const [rating, setRating] = useState('')
+
+  const places = [
+    { name: 'Cool Place' },
+    { name: 'Best Beer' },
+    { name: 'Best Steak' },
+    { name: 'Cool Place' },
+    { name: 'Best Beer' },
+    { name: 'Best Steak' },
+    { name: 'Cool Place' },
+    { name: 'Best Beer' },
+    { name: 'Best Steak' },
+  ]
 
   return (
     <div className={classes.container}>
@@ -27,6 +40,7 @@ const List = () => {
         <Select
           id='type'
           value={type}
+          variant='standard'
           onChange={(e) => setType(e.target.value)}
         >
           <MenuItem value='restaurants'>Restaurants</MenuItem>
@@ -39,6 +53,7 @@ const List = () => {
         <Select
           id='rating'
           value={rating}
+          variant='standard'
           onChange={(e) => setRating(e.target.value)}
         >
           <MenuItem value=''>All</MenuItem>
@@ -47,11 +62,13 @@ const List = () => {
           <MenuItem value='4.5'>Above 4.5</MenuItem>
         </Select>
       </FormControl>
-      {/* <Grid container spacing={3} className={classes.list}>
+      <Grid container spacing={3} className={classes.list}>
         {places?.map((place, i) => (
-          <Grid key={i} item xs={12}></Grid>
+          <Grid key={i} item xs={12}>
+            <PlaceDetails place={place} />
+          </Grid>
         ))}
-      </Grid> */}
+      </Grid>
     </div>
   )
 }
