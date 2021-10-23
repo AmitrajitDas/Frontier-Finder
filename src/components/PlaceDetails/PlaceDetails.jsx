@@ -66,7 +66,7 @@ const PlaceDetails = ({ place, selected, refProp }) => {
             my={1}
             alignItems='center'
           >
-            <img src={award.images.small} />
+            <img src={award.images.small} alt='awards' />
             <Typography variant='subtitle2' color='textSecondary'>
               {award.display_name}
             </Typography>

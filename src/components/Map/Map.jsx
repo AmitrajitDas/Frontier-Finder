@@ -5,9 +5,9 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 
 import useStyles from './styles'
 
-const Map = ({ coordinates, setCoordinates, setBounds }) => {
+const Map = ({ coordinates, setCoordinates, setBounds, places }) => {
   const classes = useStyles()
-  const isMobile = useMediaQuery('(min-width: 600px)')
+  const isMobile = useMediaQuery('(max-width: 600px)')
 
   return (
     <div className={classes.mapContainer}>
@@ -23,7 +23,47 @@ const Map = ({ coordinates, setCoordinates, setBounds }) => {
           setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw })
         }}
         onChildClick={''}
-      ></GoogleMapReact>
+      >
+        {places.length &&
+          places.map((place, i) => (
+            <div
+              className={classes.markerContainer}
+              lat={Number(place.latitude)}
+              lng={Number(place.longitude)}
+              key={i}
+            >
+              {isMobile ? (
+                <LocationOnOutlinedIcon color='primary' fontSize='large' />
+              ) : (
+                <Paper elevation={3} className={classes.paper}>
+                  <Typography
+                    className={classes.typography}
+                    variant='subtitle2'
+                    gutterBottom
+                  >
+                    {' '}
+                    {place.name}
+                  </Typography>
+                  <img
+                    className={classes.pointer}
+                    src={
+                      place.photo
+                        ? place.photo.images.large.url
+                        : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'
+                    }
+                    alt={place.name}
+                  />
+                  <Rating
+                    name='read-only'
+                    size='small'
+                    value={Number(place.rating)}
+                    readOnly
+                  />
+                </Paper>
+              )}
+            </div>
+          ))}
+      </GoogleMapReact>
     </div>
   )
 }
