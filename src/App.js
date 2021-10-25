@@ -38,15 +38,19 @@ const App = () => {
 
   useEffect(() => {
     console.log(coordinates, bounds)
-    setLoading(true)
-    getPlacesData(type, bounds && bounds.ne, bounds && bounds.sw).then(
-      (data) => {
-        console.log(data)
-        setPlaces(data)
-        setFilteredPlaces([])
-        setLoading(false)
-      }
-    )
+    if (bounds) {
+      setLoading(true)
+      getPlacesData(type, bounds && bounds.ne, bounds && bounds.sw).then(
+        (data) => {
+          console.log(data)
+          setPlaces(
+            data?.filter((place) => place.name && place.num_reviews > 0)
+          )
+          setFilteredPlaces([])
+          setLoading(false)
+        }
+      )
+    }
   }, [type, coordinates, bounds])
 
   const theme = responsiveFontSizes(
@@ -74,7 +78,11 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <Paper>
           <CssBaseline />
-          <Navbar dark={dark} setDark={setDark} />
+          <Navbar
+            dark={dark}
+            setDark={setDark}
+            setCoordinates={setCoordinates}
+          />
           <Grid container spacing={3} style={{ width: '100%', height: '100%' }}>
             <Grid item xs={12} md={4}>
               <List
