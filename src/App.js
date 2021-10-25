@@ -20,6 +20,8 @@ const App = () => {
   const [bounds, setBounds] = useState({})
   const [childClicked, setChildClicked] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [type, setType] = useState('restaurants')
+  const [rating, setRating] = useState('')
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -32,12 +34,14 @@ const App = () => {
   useEffect(() => {
     console.log(coordinates, bounds)
     setLoading(true)
-    getPlacesData(bounds && bounds.ne, bounds && bounds.sw).then((data) => {
-      console.log(data)
-      setPlaces(data)
-      setLoading(false)
-    })
-  }, [coordinates, bounds])
+    getPlacesData(type, bounds && bounds.ne, bounds && bounds.sw).then(
+      (data) => {
+        console.log(data)
+        setPlaces(data)
+        setLoading(false)
+      }
+    )
+  }, [type, coordinates, bounds])
 
   const theme = responsiveFontSizes(
     createTheme({
@@ -71,6 +75,10 @@ const App = () => {
                 places={places}
                 childClicked={childClicked}
                 loading={loading}
+                type={type}
+                setType={setType}
+                rating={rating}
+                setRating={setRating}
               />
             </Grid>
             <Grid item xs={12} md={8}>
