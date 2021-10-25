@@ -16,9 +16,10 @@ import Rating from '@mui/material/Rating'
 import useStyles from './styles.js'
 
 const PlaceDetails = ({ place, selected, refProp }) => {
+  const classes = useStyles()
+
   if (selected)
     refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  const classes = useStyles()
 
   return (
     <Card elevation={6}>

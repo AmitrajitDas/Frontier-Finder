@@ -5,7 +5,13 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 
 import useStyles from './styles'
 
-const Map = ({ coordinates, setCoordinates, setBounds, places }) => {
+const Map = ({
+  coordinates,
+  setCoordinates,
+  setBounds,
+  places,
+  setChildClicked,
+}) => {
   const classes = useStyles()
   const isMobile = useMediaQuery('(max-width: 600px)')
 
@@ -14,7 +20,7 @@ const Map = ({ coordinates, setCoordinates, setBounds, places }) => {
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyC6UZ6F_EJFZFR53j9CW54KlJacc6eE3eQ' }}
         defaultCenter={coordinates}
-        ceter={coordinates}
+        center={coordinates}
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
         options={''}
@@ -22,9 +28,9 @@ const Map = ({ coordinates, setCoordinates, setBounds, places }) => {
           setCoordinates({ lat: e.center.lat, lng: e.center.lng })
           setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw })
         }}
-        onChildClick={''}
+        onChildClick={(child) => setChildClicked(child)}
       >
-        {places.length &&
+        {places &&
           places.map((place, i) => (
             <div
               className={classes.markerContainer}

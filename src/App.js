@@ -18,6 +18,8 @@ const App = () => {
   const [places, setPlaces] = useState([])
   const [coordinates, setCoordinates] = useState({})
   const [bounds, setBounds] = useState({})
+  const [childClicked, setChildClicked] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -29,9 +31,11 @@ const App = () => {
 
   useEffect(() => {
     console.log(coordinates, bounds)
+    setLoading(true)
     getPlacesData(bounds && bounds.ne, bounds && bounds.sw).then((data) => {
       console.log(data)
       setPlaces(data)
+      setLoading(false)
     })
   }, [coordinates, bounds])
 
@@ -63,7 +67,11 @@ const App = () => {
           <Navbar dark={dark} setDark={setDark} />
           <Grid container spacing={3} style={{ width: '100%', height: '100%' }}>
             <Grid item xs={12} md={4}>
-              <List places={places} />
+              <List
+                places={places}
+                childClicked={childClicked}
+                loading={loading}
+              />
             </Grid>
             <Grid item xs={12} md={8}>
               <Map
@@ -71,6 +79,7 @@ const App = () => {
                 setCoordinates={setCoordinates}
                 setBounds={setBounds}
                 places={places}
+                setChildClicked={setChildClicked}
               />
             </Grid>
           </Grid>
