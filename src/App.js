@@ -7,7 +7,7 @@ import {
 import { Paper, CssBaseline } from '@mui/material'
 import Grid from '@mui/material/Grid'
 
-import { getPlacesData } from './api/TrippierAPI'
+import { getPlacesData, getWeatherData } from './api/TrippierAPI'
 
 import Navbar from './components/Header/Navbar'
 import Map from './components/Map/Map'
@@ -16,6 +16,7 @@ import List from './components/List/List'
 const App = () => {
   const [dark, setDark] = useState(true)
   const [places, setPlaces] = useState([])
+  const [weather, setWeather] = useState([])
   const [coordinates, setCoordinates] = useState({})
   const [bounds, setBounds] = useState({})
   const [childClicked, setChildClicked] = useState(null)
@@ -39,6 +40,11 @@ const App = () => {
   useEffect(() => {
     if (bounds.sw && bounds.ne) {
       setLoading(true)
+
+      getWeatherData(coordinates.lat, coordinates.lng).then((data) => {
+        console.log(data)
+        setWeather(data)
+      })
       getPlacesData(type, bounds && bounds.ne, bounds && bounds.sw).then(
         (data) => {
           console.log(data)
@@ -101,6 +107,7 @@ const App = () => {
                 setBounds={setBounds}
                 places={filteredPlaces.length ? filteredPlaces : places}
                 setChildClicked={setChildClicked}
+                weather={weather}
               />
             </Grid>
           </Grid>
