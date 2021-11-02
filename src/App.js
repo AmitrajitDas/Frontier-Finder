@@ -108,6 +108,7 @@ const App = () => {
                 places={filteredPlaces.length ? filteredPlaces : places}
                 setChildClicked={setChildClicked}
                 weather={weather}
+                dark={dark}
               />
             </Grid>
           </Grid>

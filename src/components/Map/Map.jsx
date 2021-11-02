@@ -3,6 +3,8 @@ import GoogleMapReact from 'google-map-react'
 import { Paper, Typography, useMediaQuery, Rating } from '@mui/material'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 
+import mapStylesDark from './mapStylesDark'
+import mapStylesLight from './mapStylesLight'
 import useStyles from './styles'
 
 const Map = ({
@@ -12,6 +14,7 @@ const Map = ({
   places,
   setChildClicked,
   weather,
+  dark,
 }) => {
   const classes = useStyles()
   const isMobile = useMediaQuery('(max-width: 600px)')
@@ -19,12 +22,16 @@ const Map = ({
   return (
     <div className={classes.mapContainer}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyDNVjHZDq7elRUVy7PlNXnVk-XPsU5GegY' }}
+        bootstrapURLKeys={{ key: 'AIzaSyCFlvY2vQdU2nUEIMOTx7LVWPlbjiFeSaA' }}
         defaultCenter={coordinates}
         center={coordinates}
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
-        options={''}
+        options={{
+          disableDefaultUI: true,
+          zoomControl: true,
+          styles: dark ? mapStylesDark : mapStylesLight,
+        }}
         onChange={(e) => {
           setCoordinates({ lat: e.center.lat, lng: e.center.lng })
           setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw })
