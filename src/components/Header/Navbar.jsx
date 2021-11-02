@@ -29,7 +29,7 @@ const Navbar = ({ dark, setDark, setCoordinates }) => {
           className={classes.title}
           style={{ fontWeight: 'bold', textTransform: 'uppercase' }}
         >
-          TriPPier
+          Frontier Finder
         </Typography>
         <Box display='flex'>
           {dark ? (
