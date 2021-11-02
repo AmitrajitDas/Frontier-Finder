@@ -37,8 +37,7 @@ const App = () => {
   }, [rating])
 
   useEffect(() => {
-    console.log(coordinates, bounds)
-    if (bounds) {
+    if (bounds.sw && bounds.ne) {
       setLoading(true)
       getPlacesData(type, bounds && bounds.ne, bounds && bounds.sw).then(
         (data) => {
@@ -51,7 +50,7 @@ const App = () => {
         }
       )
     }
-  }, [type, coordinates, bounds])
+  }, [type, bounds])
 
   const theme = responsiveFontSizes(
     createTheme({
