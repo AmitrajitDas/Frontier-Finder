@@ -6,7 +6,7 @@
 
 ## Dark Mode
 
-![screenshot](https://github.com/AmitrajitDas/Bloggoly/blob/main/src/assets/screenshot1.png)
+![screenshot](https://github.com/AmitrajitDas/Frontier-Finder/blob/main/src/assets/screenshot1.png)
 
 ## Light Mode
 
