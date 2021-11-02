@@ -10,7 +10,7 @@
 
 ## Light Mode
 
-![screenshot](https://github.com/AmitrajitDas/Bloggoly/blob/main/src/assets/screenshot2.png)
+![screenshot](https://github.com/AmitrajitDas/Frontier-Finder/blob/main/src/assets/screenshot2.png)
 
 ## DEMO
 
